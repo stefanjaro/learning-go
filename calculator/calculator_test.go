@@ -105,7 +105,7 @@ func TestDivideInvalid(t *testing.T) {
 	t.Parallel()
 	_, err := calculator.Divide(5, 0)
 	if err == nil {
-		t.Errorf("Divide(5, 0): Expected error, but got err == nil")
+		t.Error("Divide(5, 0): Expected error, but got err == nil")
 	}
 }
 
@@ -138,7 +138,7 @@ func TestSqrtInvalid(t *testing.T) {
 	t.Parallel()
 	_, err := calculator.Sqrt(-2)
 	if err == nil {
-		t.Errorf("Sqrt(-2): Expected error, but got err == nil")
+		t.Error("Sqrt(-2): Expected error, but got err == nil")
 	}
 }
 
