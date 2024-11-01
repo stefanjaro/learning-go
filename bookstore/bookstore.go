@@ -4,6 +4,7 @@ import "errors"
 
 // Storing information about books
 type Book struct {
+	ID     int
 	Title  string
 	Author string
 	Copies int
@@ -22,4 +23,14 @@ func Buy(b Book) (Book, error) {
 // Get the catalog of books
 func GetAllBooks(catalog []Book) []Book {
 	return catalog
+}
+
+// Get a specific book
+func GetBook(catalog []Book, ID int) (Book, error) {
+	for _, b := range catalog {
+		if b.ID == ID {
+			return b, nil
+		}
+	}
+	return Book{}, errors.New("book not found")
 }

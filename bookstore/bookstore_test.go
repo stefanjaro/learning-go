@@ -11,6 +11,7 @@ import (
 func TestBook(t *testing.T) {
 	t.Parallel()
 	_ = bookstore.Book{
+		ID:     0,
 		Title:  "Spark Joy",
 		Author: "Marie Kondo",
 		Copies: 2,
@@ -65,8 +66,38 @@ func TestGetAllBooks(t *testing.T) {
 		{Title: "The Power of Go: Tools"},
 	}
 	got := bookstore.GetAllBooks(catalog)
-	// If these aren't equal, we can use cmp to display the diff
+	// Introducing the cmp package here
+	// Use Equal() for comparing structs or slices
+	// Use Diff() for printing the line by line diff
 	if !cmp.Equal(want, got) {
 		t.Error(cmp.Diff(want, got))
+	}
+}
+
+func TestGetBook(t *testing.T) {
+	t.Parallel()
+	testCatalog := []bookstore.Book{
+		{ID: 0, Title: "For the Love of Go"},
+		{ID: 1, Title: "Azkaban the Prisoner Guy"},
+	}
+	got, err := bookstore.GetBook(testCatalog, 1)
+	want := testCatalog[1]
+	if err != nil {
+		t.Fatalf("expected nil error for valid input, got %v", err)
+	}
+	if !cmp.Equal(want, got) {
+		t.Error(cmp.Diff(want, got))
+	}
+}
+
+func TestGetBookNoID(t *testing.T) {
+	t.Parallel()
+	testCatalog := []bookstore.Book{
+		{ID: 0, Title: "For the Love of Go"},
+		{ID: 1, Title: "Azkaban the Prisoner Guy"},
+	}
+	_, err := bookstore.GetBook(testCatalog, 2)
+	if err == nil {
+		t.Errorf("Expected error, got err == nil")
 	}
 }
