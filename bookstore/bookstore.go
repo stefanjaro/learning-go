@@ -18,3 +18,8 @@ func Buy(b Book) (Book, error) {
 		return Book{}, errors.New("cannot buy a book with no copies")
 	}
 }
+
+// Get the catalog of books
+func GetAllBooks(catalog []Book) []Book {
+	return catalog
+}
